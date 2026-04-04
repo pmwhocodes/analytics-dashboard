@@ -13,7 +13,7 @@ export function NorthStar() {
     <section className="mb-10">
       <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Key Metric — Conversion Rate</p>
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-8 py-7">
-        <div className="grid grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
           {/* Left — big number */}
           <div>
             <p className="text-xs text-gray-400 mb-1">{data.label}</p>
@@ -22,7 +22,7 @@ export function NorthStar() {
           </div>
 
           {/* Right — target + progress + vs. last week */}
-          <div className="border-l border-gray-100 pl-8 space-y-5">
+          <div className="border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8 space-y-5">
             <div className="flex justify-between items-baseline">
               <div>
                 <p className="text-xs text-gray-400">vs. last week</p>

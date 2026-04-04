@@ -38,7 +38,7 @@ export function HealthMetrics() {
   return (
     <section>
       <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Platform Health</p>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {metrics.map((m) => {
           const s = statusConfig[m.status];
           return (

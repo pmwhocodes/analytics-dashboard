@@ -5,7 +5,7 @@ import { WeekHeader } from "@/components/WeekHeader";
 
 export default function Dashboard() {
   return (
-    <main className="min-h-screen bg-gray-100 px-8 py-10 font-sans">
+    <main className="min-h-screen bg-gray-100 px-4 py-6 md:px-8 md:py-10 font-sans">
       <div className="max-w-6xl mx-auto">
         <WeekHeader />
         <div className="bg-white rounded-3xl border border-gray-200 shadow-sm px-8 py-8 mb-6">

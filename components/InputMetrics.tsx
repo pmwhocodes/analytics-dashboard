@@ -131,7 +131,7 @@ export function InputMetrics() {
   return (
     <section className="mb-10">
       <p className="text-xs uppercase tracking-widest text-gray-400 mb-4">Input Metrics — Conversion Drivers</p>
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-4">
         {metrics.map((m) => {
           const s = statusConfig[m.status];
           return (
