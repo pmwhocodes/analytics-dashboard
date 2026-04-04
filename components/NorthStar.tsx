@@ -1,7 +1,7 @@
 const data = {
   value: "18.4%",
-  label: "MB3 Conversion Rate",
-  description: "% of active MB3 users who completed a sample order or project",
+  label: "Platform Conversion Rate",
+  description: "% of active platform users who completed a sample order or project",
   change: "+2.1%",
   direction: "up" as const,
   target: "20%",

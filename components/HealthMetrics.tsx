@@ -12,7 +12,7 @@ const metrics: HealthMetric[] = [
     label: "Platform Uptime",
     value: "99.8%",
     status: "green",
-    description: "MB3 availability this week",
+    description: "Platform availability this week",
   },
   {
     label: "Search Success Rate",
