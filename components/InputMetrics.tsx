@@ -69,24 +69,32 @@ function getWeekLabel(weekIndex: number): string {
   return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
-function Sparkline({ data }: { data: number[] }) {
-  const min = 0;
-  const max = 100;
-  const range = 100;
+function Sparkline({ data, fixedScale = false }: { data: number[]; fixedScale?: boolean }) {
+  const min = fixedScale ? 0 : Math.min(...data);
+  const max = fixedScale ? 100 : Math.max(...data);
+  const range = max - min || 1;
   const vbWidth = 200;
   const vbHeight = 40;
   const labelHeight = 16;
+  const yAxisWidth = fixedScale ? 28 : 0;
   const totalVbHeight = vbHeight + labelHeight;
 
   const points = data
     .map((v, i) => {
-      const x = (i / (data.length - 1)) * vbWidth;
+      const x = yAxisWidth + (i / (data.length - 1)) * (vbWidth - yAxisWidth);
       const y = vbHeight - ((v - min) / range) * (vbHeight - 8) - 4;
       return `${x},${y}`;
     })
     .join(" ");
 
   const tickIndices = [0, data.length - 1];
+
+  // Y-axis labels for fixed scale
+  const yLabels = fixedScale ? [
+    { value: 100, y: vbHeight - ((100 - min) / range) * (vbHeight - 8) - 4 },
+    { value: Math.round((data[data.length - 1] + data[0]) / 2), y: vbHeight / 2 },
+    { value: 0, y: vbHeight - 4 },
+  ] : [];
 
   return (
     <svg
@@ -95,8 +103,16 @@ function Sparkline({ data }: { data: number[] }) {
       className="w-full overflow-visible"
       style={{ height: "56px" }}
     >
+      {/* Y-axis labels for fixed scale */}
+      {fixedScale && yLabels.map((l, i) => (
+        <text key={i} x={yAxisWidth - 3} y={l.y + 3} textAnchor="end" fontSize="7.5" fill="#9ca3af">
+          {l.value}%
+        </text>
+      ))}
+
+      {/* X-axis ticks and labels */}
       {data.map((_, i) => {
-        const x = (i / (data.length - 1)) * vbWidth;
+        const x = yAxisWidth + (i / (data.length - 1)) * (vbWidth - yAxisWidth);
         return (
           <g key={i}>
             <line x1={x} y1={vbHeight} x2={x} y2={vbHeight + 4} stroke="#d1d5db" strokeWidth="1" />
@@ -114,7 +130,7 @@ function Sparkline({ data }: { data: number[] }) {
           </g>
         );
       })}
-      <line x1={0} y1={vbHeight} x2={vbWidth} y2={vbHeight} stroke="#e5e7eb" strokeWidth="1" />
+      <line x1={yAxisWidth} y1={vbHeight} x2={vbWidth} y2={vbHeight} stroke="#e5e7eb" strokeWidth="1" />
       <polyline
         points={points}
         fill="none"
@@ -148,7 +164,7 @@ export function InputMetrics() {
                 {m.direction === "up" ? "↑" : "↓"} {m.change} vs. last week
               </p>
               <div className="mt-3 w-full">
-                <Sparkline data={m.trend} />
+                <Sparkline data={m.trend} fixedScale={m.label === "Attribution Coverage"} />
               </div>
               <p className="text-xs text-gray-400 mt-2 leading-relaxed">{m.statusReason}</p>
             </div>
