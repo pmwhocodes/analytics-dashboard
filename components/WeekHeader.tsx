@@ -1,12 +1,9 @@
 export function WeekHeader() {
-  const today = new Date();
-  const weekStart = new Date(today);
-  weekStart.setDate(today.getDate() - today.getDay() + 1);
-  const weekEnd = new Date(weekStart);
-  weekEnd.setDate(weekStart.getDate() + 6);
-
   const fmt = (d: Date) =>
     d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+  const weekStart = new Date("2026-03-09");
+  const weekEnd = new Date("2026-03-15");
 
   return (
     <div className="mb-10">
