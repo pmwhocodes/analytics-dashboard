@@ -70,9 +70,9 @@ function getWeekLabel(weekIndex: number): string {
 }
 
 function Sparkline({ data }: { data: number[] }) {
-  const max = Math.max(...data);
-  const min = Math.min(...data);
-  const range = max - min || 1;
+  const min = 0;
+  const max = 100;
+  const range = 100;
   const vbWidth = 200;
   const vbHeight = 40;
   const labelHeight = 16;
